@@ -194,3 +194,25 @@ Helix.prototype.attr = function(attr, val) {
     return this;
   }
 };
+
+/**
+ * Get the descendants of each element in the current set of matched elements,
+ * filtered by a selector.
+ *
+ * @param {String} selector
+ * @return {Helix}
+ * @api public
+ */
+
+Helix.prototype.find = function(selector) {
+  var results = [];
+  for (var i = 0; i < this.length; ++i) {
+      var res = this[i].querySelectorAll(selector);
+      res = Array.prototype.slice.call(res);
+      results = results.concat(res);
+  }
+  // Remove duplicates
+  return new Helix(results.filter(function(val, i, arr) {
+      return (i <= arr.indexOf(val));
+  }));
+};

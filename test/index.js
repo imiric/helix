@@ -90,3 +90,11 @@ describe('classes', function(){
     $('div', ctx)[0].classList.contains('person').should.equal(true);
   })
 })
+
+describe('traversal', function(){
+  it('should find descendants', function(){
+    var $el = $('.person');
+    $el.find('span').length.should.equal(3);
+    $el.find('span.name').html().should.deep.equal(['Matt']);
+  })
+})
