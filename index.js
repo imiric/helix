@@ -33,41 +33,85 @@ function create(selector, context) {
  */
 
 function Helix(selector, context) {
+  // Behave as an array
+  this.sort = [].sort;
+  this.push = [].push;
+  this.splice = [].splice;
+  this.indexOf = [].indexOf;
+  this.length = 0;
+
   context = (typeof context === 'undefined') ? document : context;
-  this.el = context.querySelector(selector);
-  if (!this.el) throw new Error('cannot find ' + selector + ' selector');
-  this.classes = classes(this.el);
+  var el = context.querySelectorAll(selector);
+  if (el.length) {
+    this._mergeArray(el);
+  }
 }
 
+
 /**
- * Get and set text
+ * Merge array into current Helix instance.
  *
- * @param {String} str
- * @return {Helix}
- * @api public
+ * @param {Array} arr
+ * @api private
  */
 
-Helix.prototype.text = function(str) {
-  if (!str) return this.el.innerText;
-  this.el.innerText = str;
+Helix.prototype._mergeArray = function(arr) {
+  for (var i = 0; i < arr.length; ++i) {
+    if (this.indexOf(arr[i]) === -1) {
+      this.push(arr[i]);
+    }
+  }
+};
+
+/**
+ * Generic property getter
+ *
+ * @param {string} prop
+ * @return {Array} - All values of property in current objects.
+ * @api private
+ */
+
+Helix.prototype._get = function(prop) {
+  var vals = [];
+  for (var i = 0; i < this.length; ++i) {
+    vals.push(this[i][prop])
+  }
+  return vals;
+};
+
+/**
+ * Generic property setter
+ *
+ * @param {string} prop
+ * @param {string} val
+ * @return {Helix}
+ * @api private
+ */
+
+Helix.prototype._set = function(prop, val) {
+  for (var i = 0; i < this.length; ++i) {
+    this[i][prop] = val;
+  }
   return this;
 };
 
 /**
- * Get and set HTML
- *
- *   $()
- *
- * @param {String} str
- * @return {Helix}
- * @api public
+ * Define the innerText and innerHTML getters and setters
  */
 
-Helix.prototype.html = function(str) {
-  if (!str) return this.el.innerHTML;
-  this.el.innerHTML = str;
-  return this;
-};
+['innerText', 'innerHTML'].forEach(
+    function(prop) {
+        var funcName = prop.replace('inner', '').toLowerCase();
+        Object.defineProperty(Helix.prototype, funcName, {
+            value: function(str) {
+              if (typeof str === 'undefined') {
+                return this._get(prop);
+              } else {
+                return this._set(prop, str);
+              }
+            }
+        });
+    });
 
 /**
  * Add class
@@ -78,7 +122,9 @@ Helix.prototype.html = function(str) {
  */
 
 Helix.prototype.addClass = function(cls) {
-  this.classes.add(cls);
+  for (var i = 0; i < this.length; ++i) {
+    classes(this[i]).add(cls);
+  }
   return this;
 };
 
@@ -91,7 +137,9 @@ Helix.prototype.addClass = function(cls) {
  */
 
 Helix.prototype.removeClass = function(cls) {
-  this.classes.remove(cls);
+  for (var i = 0; i < this.length; ++i) {
+    classes(this[i]).remove(cls);
+  }
   return this;
 };
 
@@ -104,7 +152,9 @@ Helix.prototype.removeClass = function(cls) {
  */
 
 Helix.prototype.toggle = function(cls) {
-  this.classes.toggle(cls);
+  for (var i = 0; i < this.length; ++i) {
+    classes(this[i]).toggle(cls);
+  }
   return this;
 };
 
@@ -119,7 +169,16 @@ Helix.prototype.toggle = function(cls) {
  */
 
 Helix.prototype.attr = function(attr, val) {
-  if (!val) return this.el.getAttribute(attr);
-  this.el.setAttribute(attr, val);
-  return this;
+  if (typeof val === 'undefined') {
+    var vals = [];
+    for (var i = 0; i < this.length; ++i) {
+      vals.push(this[i].getAttribute(attr));
+    }
+    return vals;
+  } else {
+    for (var i = 0; i < this.length; ++i) {
+      this[i].setAttribute(attr, val);
+    }
+    return this;
+  }
 };
