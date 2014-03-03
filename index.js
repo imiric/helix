@@ -13,28 +13,28 @@ module.exports = create;
 /**
  * Create `Helix`
  *
- * @param {DOMNode} el
- * @return {Function}
+ * @param {string} selector
+ * @param {DOMNode} [context=document]
+ * @return {Helix}
  * @api public
  */
 
-function create(el) {
-  return function(selector) {
-    return new Helix(selector, el);
-  };
+function create(selector, context) {
+  return new Helix(selector, context);
 }
 
 /**
  * Initialize `Helix`
  *
  * @param {string} selector
- * @param {DOMNode} el
+ * @param {DOMNode} [context=document]
  * @return {Helix}
  * @api public
  */
 
-function Helix(selector, el) {
-  this.el = el.querySelector(selector);
+function Helix(selector, context) {
+  context = (typeof context === 'undefined') ? document : context;
+  this.el = context.querySelector(selector);
   if (!this.el) throw new Error('cannot find ' + selector + ' selector');
   this.classes = classes(this.el);
 }

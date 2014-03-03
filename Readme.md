@@ -13,12 +13,10 @@
 
 ## API
 
-### Helix(el)
-
-Create a Helix instance.
+Require Helix.
 
 ```js
-var $ = Helix(document.getElementById('person'));
+var $ = require('helix');
 ```
 
 ### $(selector)
