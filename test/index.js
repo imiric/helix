@@ -6,11 +6,21 @@
 var $ = require('helix'),
     should = require('chai').should();
 
-describe('selector', function(){
+describe('constructor', function(){
   it('should select correct element', function(){
     var el = $('.name');
     el[0].should.have.property('nodeType').with.valueOf(1);
     el[0].className.should.equal('name');
+  })
+
+  it('can receive DOM element', function(){
+    $(document.querySelector('.name')).length.should.equal(1);
+  })
+
+  it('can receive an array of DOM elements or Helix instance', function(){
+    var el = $(document.querySelectorAll('.person span'));
+    el.length.should.equal(3);
+    $(el).length.should.equal(3);
   })
 })
 

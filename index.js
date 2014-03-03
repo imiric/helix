@@ -40,6 +40,18 @@ function Helix(selector, context) {
   this.indexOf = [].indexOf;
   this.length = 0;
 
+  // Wrap an existing DOM Node
+  if (selector && selector.nodeType === 1) {
+    this[0] = selector;
+    this.length = 1;
+    return;
+  }
+  // Handle receiving an array of DOM elements
+  if (selector && selector.length && selector[0].nodeType === 1) {
+    this._mergeArray(selector);
+    return;
+  }
+
   context = (typeof context === 'undefined') ? document : context;
   var el = context.querySelectorAll(selector);
   if (el.length) {
