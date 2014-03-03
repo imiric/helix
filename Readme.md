@@ -34,7 +34,7 @@ Get and set text
 
 ```js
 $('.name').text('Matt')
-$('.name').text() // Matt
+$('.name').text() // ["Matt"]
 ```
 
 ### #html(val)
@@ -43,7 +43,16 @@ Get and set HTML
 
 ```js
 $('.name').html('<strong>Matt</strong>')
-$('.name').html() // <strong>Matt</strong>
+$('.name').html() // ["<strong>Matt</strong>"]
+```
+
+### #find(selector)
+
+Get the descendants of each element in the current set of matched elements,
+filtered by a selector.
+
+```js
+$('.person').find('span')
 ```
 
 ### #addClass(cls)
@@ -79,8 +88,8 @@ Get and set attributes that are on the selected element.
 ```
 
 ```js
-$('.user').attr('type', 'radio').name('person')
-$('.user').attr('type') // radio
+$('.user').attr('type', 'radio').attr('name', 'person')
+$('.user').attr('type') // ["radio"]
 ```
 
 Get and set attribute that doesn't already exist
