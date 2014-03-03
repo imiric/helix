@@ -30,19 +30,6 @@ $('.name')
 $('#nav')
 ```
 
-### #\[attr\](val)
-
-Get and set attributes that are on the selected element.
-
-```html
-<input class="user" id="user" type="text" name="user">
-```
-
-```js
-$('.user').type('radio').name('person')
-$('.user').type() // radio
-```
-
 ### #text(val)
 
 Get and set text
@@ -87,10 +74,21 @@ $('.name').toggle('person')
 
 ### #attr(attr, val)
 
+Get and set attributes that are on the selected element.
+
+```html
+<input class="user" id="user" type="text" name="user">
+```
+
+```js
+$('.user').attr('type', 'radio').name('person')
+$('.user').attr('type') // radio
+```
+
 Get and set attribute that doesn't already exist
 
 ```js
-$('.name').attr('data-author', 'matt')
+$('.user').attr('data-author', 'matt')
 ```
 
 ## License

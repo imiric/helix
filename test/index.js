@@ -49,13 +49,13 @@ describe('contents', function(){
 describe('attributes', function(){
   it('should return existing attribute value', function(){
     var $ = helix(document.querySelector('.person').cloneNode(true));
-    $('a').href().should.equal('/about');
+    $('a').attr('href').should.equal('/about');
   })
 
   it('should change attribute value', function(){
     var $ = helix(document.querySelector('.person').cloneNode(true));
-    $('a').href('/me');
-    $('a').href().should.equal('/me');
+    $('a').attr('href', '/me');
+    $('a').attr('href').should.equal('/me');
   })
 
   it('should add new attribute', function(){

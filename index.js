@@ -37,14 +37,6 @@ function Helix(selector, el) {
   this.el = el.querySelector(selector);
   if (!this.el) throw new Error('cannot find ' + selector + ' selector');
   this.classes = classes(this.el);
-
-  var attrs = this.el.attributes,
-      attr;
-
-  for (var i = 0, len = attrs.length; i < len; i++) {
-    attr = attrs.item(i).name;
-    this[attr] = this.setter(attr);
-  }
 }
 
 /**
@@ -130,20 +122,4 @@ Helix.prototype.attr = function(attr, val) {
   if (!val) return this.el.getAttribute(attr);
   this.el.setAttribute(attr, val);
   return this;
-};
-
-/**
- * Create setters to get and set attributes
- *
- * @param {String} name
- * @return {Function}
- * @api private
- */
-
-Helix.prototype.setter = function(name) {
-  return function(val) {
-    if (!val) return this.el.getAttribute(name);
-    this.el.setAttribute(name, val);
-    return this;
-  };
 };
