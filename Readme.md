@@ -55,6 +55,23 @@ filtered by a selector.
 $('.person').find('span')
 ```
 
+### #children(selector)
+
+Get the direct descendants of each element in the current set of matched
+elements, filtered by a selector.
+
+```js
+$('.person').children('span')
+```
+
+### #eq(index)
+
+Get a single element from the set of matched elements.
+
+```js
+$('span').eq(1).html()
+```
+
 ### #addClass(cls)
 
 Add a class
@@ -71,12 +88,12 @@ Remove a class
 $('.name').removeClass('person')
 ```
 
-### #toggle(cls)
+### #toggleClass(cls)
 
 Toggle a class
 
 ```js
-$('.name').toggle('person')
+$('.name').toggleClass('person')
 ```
 
 ### #attr(attr, val)
@@ -96,6 +113,30 @@ Get and set attribute that doesn't already exist
 
 ```js
 $('.user').attr('data-author', 'matt')
+```
+
+### #hide()
+
+Hide all matched elements.
+
+```js
+$('span').hide()
+```
+
+### #show()
+
+Show all matched elements.
+
+```js
+$('span').show()
+```
+
+### #toggle()
+
+Toggle display of all matched elements.
+
+```js
+$('span').toggle()
 ```
 
 ## License

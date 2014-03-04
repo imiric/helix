@@ -235,8 +235,8 @@ Helix.prototype.eq = function(index) {
 };
 
 /**
- * Get the direct children of each element in the current set of matched elements,
- * filtered by a selector.
+ * Get the direct descendants of each element in the current set of matched
+ * elements, filtered by a selector.
  *
  * @param {String} selector
  * @return {Helix}
