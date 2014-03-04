@@ -92,17 +92,28 @@ describe('classes', function(){
 })
 
 describe('traversal', function(){
-  it('should find descendants', function(){
-    var $el = $('.person');
-    $el.find('span').length.should.equal(3);
-    $el.find('span.name').html().should.deep.equal(['Matt']);
+  describe('#find()', function(){
+    it('should return all descendants', function(){
+      var $el = $('.person');
+      $el.find('span').length.should.equal(3);
+      $el.find('span.name').html().should.deep.equal(['Matt']);
+    })
+  })
+
+  describe('#children()', function(){
+    it('should return direct descendants', function(){
+      var $el = $('body');
+      $el.children('span.email').length.should.equal(0);
+      $el.children('.person').length.should.equal(1);
+    })
+  })
+
+  describe('#eq()', function(){
+    it('should return a specific element or empty if not found', function(){
+      var $el = $('.person span');
+      $el.eq(1).html().should.deep.equal(['mattmuelle@gmail.com']);
+      $el.eq(4).html().should.deep.equal([]);
+    })
   })
 })
 
-describe('#eq()', function(){
-  it('should return a specific element or empty if not found', function(){
-    var $el = $('.person span');
-    $el.eq(1).html().should.deep.equal(['mattmuelle@gmail.com']);
-    $el.eq(4).html().should.deep.equal([]);
-  })
-})

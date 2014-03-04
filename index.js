@@ -51,9 +51,14 @@ function Helix(selector, context) {
     this._mergeArray(selector);
     return;
   }
+  // Handle empty arrays
+  if (typeof selector !== 'undefined' && selector.length === 0) {
+    return;
+  }
 
   context = (typeof context === 'undefined') ? document : context;
   var el = context.querySelectorAll(selector);
+  this.selector = selector;
   if (el.length) {
     this._mergeArray(el);
   }
@@ -227,4 +232,22 @@ Helix.prototype.find = function(selector) {
 
 Helix.prototype.eq = function(index) {
   return new Helix(this[index]);
+};
+
+/**
+ * Get the direct children of each element in the current set of matched elements,
+ * filtered by a selector.
+ *
+ * @param {String} selector
+ * @return {Helix}
+ * @api public
+ */
+
+Helix.prototype.children = function(selector) {
+  var selector = selector || '*';
+  return this.find(this.selector ?
+          // Append ' > ' properly for each comma separated selector
+          this.selector.split(',').map(function(sel) {
+              return sel + ' > ' + selector}).join(',') :
+          selector);
 };
