@@ -1,6 +1,6 @@
 # helix
 
-  jquery-like dom manipulation. Tiny (1kb minified & gzipped)
+  jquery-like dom manipulation. Tiny (2.1kB minified & gzipped)
 
 ## Installation
 
