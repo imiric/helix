@@ -7,7 +7,7 @@ var $ = require('helix'),
     should = require('chai').should();
 
 describe('Helix', function(){
-  describe('Helix(selector)', function(){
+  describe('Helix(selector, context)', function(){
     it('should select correct element', function(){
       var el = $('.name');
       el[0].should.have.property('nodeType').with.valueOf(1);
@@ -22,6 +22,22 @@ describe('Helix', function(){
       var el = $(document.querySelectorAll('.person span'));
       el.length.should.equal(3);
       $(el).length.should.equal(3);
+    })
+
+    it('should be able to receive an empty array', function(){
+      (function() { $([]) }).should.not.throw(Error);
+      $([]).length.should.equal(0);
+    })
+
+    it('should be able to receive undefined', function(){
+      (function() { $(undefined) }).should.not.throw(Error);
+      $(undefined).length.should.equal(0);
+    })
+
+    it('should be able to receive a context element', function(){
+      var el = $('span', document.querySelector('.person'));
+      el.length.should.equal(3);
+      el.html().should.deep.equal(['Matt', 'mattmuelle@gmail.com', '']);
     })
   })
 
