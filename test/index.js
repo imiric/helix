@@ -98,3 +98,11 @@ describe('traversal', function(){
     $el.find('span.name').html().should.deep.equal(['Matt']);
   })
 })
+
+describe('#eq()', function(){
+  it('should return a specific element or empty if not found', function(){
+    var $el = $('.person span');
+    $el.eq(1).html().should.deep.equal(['mattmuelle@gmail.com']);
+    $el.eq(4).html().should.deep.equal([]);
+  })
+})

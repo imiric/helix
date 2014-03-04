@@ -216,3 +216,15 @@ Helix.prototype.find = function(selector) {
       return (i <= arr.indexOf(val));
   }));
 };
+
+/**
+ * Return a new Helix instance with the element at the specified index
+ *
+ * @param {number} index
+ * @return {Helix}
+ * @api public
+ */
+
+Helix.prototype.eq = function(index) {
+  return new Helix(this[index]);
+};
