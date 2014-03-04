@@ -109,13 +109,13 @@ describe('Helix', function(){
     })
   })
 
-  describe('#toggle()', function(){
+  describe('#toggleClass()', function(){
     it('should toggle a class', function(){
       var ctx = $('body')[0].cloneNode(true);
       $('div', ctx)[0].classList.contains('person').should.equal(true);
-      $('div', ctx).toggle('person');
+      $('div', ctx).toggleClass('person');
       $('div', ctx)[0].classList.contains('person').should.equal(false);
-      $('div', ctx).toggle('person');
+      $('div', ctx).toggleClass('person');
       $('div', ctx)[0].classList.contains('person').should.equal(true);
     })
   })
@@ -141,6 +141,35 @@ describe('Helix', function(){
       var $el = $('.person span');
       $el.eq(1).html().should.deep.equal(['mattmuelle@gmail.com']);
       $el.eq(4).html().should.deep.equal([]);
+    })
+  })
+
+  describe('#hide()', function(){
+    it('should hide an element', function(){
+      var $el = $($('.person span')[0].cloneNode(true));
+      $el[0].style.display.should.equal('');
+      $el.hide();
+      $el[0].style.display.should.equal('none');
+    })
+  })
+
+  describe('#show()', function(){
+    it('should show an element', function(){
+      var $el = $($('.person')[0].cloneNode(true));
+      $el[0].style.display.should.equal('none');
+      $el.show();
+      $el[0].style.display.should.equal('block');
+    })
+  })
+
+  describe('#toggle()', function(){
+    it('should toggle an element display', function(){
+      var $el = $($('.person')[0].cloneNode(true));
+      $el[0].style.display.should.equal('none');
+      $el.toggle();
+      $el[0].style.display.should.equal('block');
+      $el.toggle();
+      $el[0].style.display.should.equal('none');
     })
   })
 })

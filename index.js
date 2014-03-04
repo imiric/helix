@@ -168,7 +168,7 @@ Helix.prototype.removeClass = function(cls) {
  * @api public
  */
 
-Helix.prototype.toggle = function(cls) {
+Helix.prototype.toggleClass = function(cls) {
   for (var i = 0; i < this.length; ++i) {
     classes(this[i]).toggle(cls);
   }
@@ -251,3 +251,26 @@ Helix.prototype.children = function(selector) {
               return sel + ' > ' + selector}).join(',') :
           selector);
 };
+
+/**
+ * Hide, show and toggle element display
+ *
+ * @return {Helix}
+ * @api public
+ */
+
+var displayActions = {
+  hide: function() { return 'none'; },
+  show: function() { return 'block'; },
+  toggle: function(el) { return el.style.display == 'none' ? 'block' : 'none'; }
+};
+
+Object.keys(displayActions).forEach(function(action) {
+  Object.defineProperty(Helix.prototype, action, {
+    value: function() {
+      for (var i = 0; i < this.length; ++i) {
+        this[i].style.display = displayActions[action](this[i]);
+      }
+    }
+  });
+});
