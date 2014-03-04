@@ -1,14 +1,13 @@
 /**
  * Module dependencies
  */
-
 var classes = require('classes');
 
 /**
  * Export `Helix`
  */
-
 module.exports = create;
+
 
 /**
  * Create `Helix`
@@ -18,10 +17,10 @@ module.exports = create;
  * @return {Helix}
  * @api public
  */
-
 function create(selector, context) {
   return new Helix(selector, context);
 }
+
 
 /**
  * Initialize `Helix`
@@ -31,7 +30,6 @@ function create(selector, context) {
  * @return {Helix}
  * @api public
  */
-
 function Helix(selector, context) {
   // Behave as an array
   this.sort = [].sort;
@@ -71,7 +69,6 @@ function Helix(selector, context) {
  * @param {Array} arr
  * @api private
  */
-
 Helix.prototype._mergeArray = function(arr) {
   for (var i = 0; i < arr.length; ++i) {
     if (this.indexOf(arr[i]) === -1) {
@@ -80,6 +77,7 @@ Helix.prototype._mergeArray = function(arr) {
   }
 };
 
+
 /**
  * Generic property getter
  *
@@ -87,7 +85,6 @@ Helix.prototype._mergeArray = function(arr) {
  * @return {Array} - All values of property in current objects.
  * @api private
  */
-
 Helix.prototype._get = function(prop) {
   var vals = [];
   for (var i = 0; i < this.length; ++i) {
@@ -95,6 +92,7 @@ Helix.prototype._get = function(prop) {
   }
   return vals;
 };
+
 
 /**
  * Generic property setter
@@ -104,7 +102,6 @@ Helix.prototype._get = function(prop) {
  * @return {Helix}
  * @api private
  */
-
 Helix.prototype._set = function(prop, val) {
   for (var i = 0; i < this.length; ++i) {
     this[i][prop] = val;
@@ -112,10 +109,10 @@ Helix.prototype._set = function(prop, val) {
   return this;
 };
 
+
 /**
  * Define the innerText and innerHTML getters and setters
  */
-
 ['innerText', 'innerHTML'].forEach(
     function(prop) {
         var funcName = prop.replace('inner', '').toLowerCase();
@@ -130,6 +127,7 @@ Helix.prototype._set = function(prop, val) {
         });
     });
 
+
 /**
  * Add class
  *
@@ -137,13 +135,13 @@ Helix.prototype._set = function(prop, val) {
  * @return {Helix}
  * @api public
  */
-
 Helix.prototype.addClass = function(cls) {
   for (var i = 0; i < this.length; ++i) {
     classes(this[i]).add(cls);
   }
   return this;
 };
+
 
 /**
  * Remove class
@@ -152,13 +150,13 @@ Helix.prototype.addClass = function(cls) {
  * @return {Helix}
  * @api public
  */
-
 Helix.prototype.removeClass = function(cls) {
   for (var i = 0; i < this.length; ++i) {
     classes(this[i]).remove(cls);
   }
   return this;
 };
+
 
 /**
  * Toggle class
@@ -167,7 +165,6 @@ Helix.prototype.removeClass = function(cls) {
  * @return {Helix}
  * @api public
  */
-
 Helix.prototype.toggleClass = function(cls) {
   for (var i = 0; i < this.length; ++i) {
     classes(this[i]).toggle(cls);
@@ -184,7 +181,6 @@ Helix.prototype.toggleClass = function(cls) {
  * @return {Helix}
  * @api public
  */
-
 Helix.prototype.attr = function(attr, val) {
   if (typeof val === 'undefined') {
     var vals = [];
@@ -200,6 +196,7 @@ Helix.prototype.attr = function(attr, val) {
   }
 };
 
+
 /**
  * Get the descendants of each element in the current set of matched elements,
  * filtered by a selector.
@@ -208,7 +205,6 @@ Helix.prototype.attr = function(attr, val) {
  * @return {Helix}
  * @api public
  */
-
 Helix.prototype.find = function(selector) {
   var results = [];
   for (var i = 0; i < this.length; ++i) {
@@ -222,6 +218,7 @@ Helix.prototype.find = function(selector) {
   }));
 };
 
+
 /**
  * Return a new Helix instance with the element at the specified index
  *
@@ -229,10 +226,10 @@ Helix.prototype.find = function(selector) {
  * @return {Helix}
  * @api public
  */
-
 Helix.prototype.eq = function(index) {
   return new Helix(this[index]);
 };
+
 
 /**
  * Get the direct descendants of each element in the current set of matched
@@ -242,7 +239,6 @@ Helix.prototype.eq = function(index) {
  * @return {Helix}
  * @api public
  */
-
 Helix.prototype.children = function(selector) {
   var selector = selector || '*';
   return this.find(this.selector ?
@@ -252,13 +248,13 @@ Helix.prototype.children = function(selector) {
           selector);
 };
 
+
 /**
  * Hide, show and toggle element display
  *
  * @return {Helix}
  * @api public
  */
-
 var displayActions = {
   hide: function() { return 'none'; },
   show: function() { return 'block'; },
