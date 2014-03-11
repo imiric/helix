@@ -1,7 +1,9 @@
 /**
  * Module dependencies
  */
-var classes = require('classes');
+var classes = require('classes'),
+    matches = require('matches-selector');
+
 
 /**
  * Export `Helix`
@@ -228,6 +230,74 @@ Helix.prototype.find = function(selector) {
  */
 Helix.prototype.eq = function(index) {
   return new Helix(this[index]);
+};
+
+
+/**
+ * Get the ancestors of each set in the element, optionally filtered by a
+ * selector.
+ *
+ * @param {String} selector
+ * @return {Helix}
+ * @api public
+ */
+Helix.prototype.parents = function(selector) {
+  var selector = selector || '*',
+      parents = [];
+  for (var i = 0; i < this.length; ++i) {
+      var parentEl = this[i].parentElement;
+      while (parentEl) {
+          if (matches(parentEl, selector)) {
+              parents.push(parentEl);
+          }
+          parentEl = parentEl.parentElement;
+      }
+  }
+  return new Helix(parents);
+};
+
+
+/**
+ * Get the closest ancestor of each set in the element, optionally filtered by
+ * a selector.
+ *
+ * @param {String} selector
+ * @return {Helix}
+ * @api public
+ */
+Helix.prototype.closest = function(selector) {
+  var selector = selector || '*',
+      closest = [];
+  for (var i = 0; i < this.length; ++i) {
+      var el = this[i];
+      while (el) {
+          if (matches(el, selector)) {
+              closest.push(el);
+              el = null;
+          }
+          if (el) el = el.parentElement;
+      }
+  }
+  return new Helix(closest);
+};
+
+
+/**
+ * Filter the matched set of elements by a selector.
+ *
+ * @param {String} selector
+ * @return {Helix}
+ * @api public
+ */
+Helix.prototype.filter = function(selector) {
+  if (!selector) return new Helix();
+  var results = [];
+  for (var i = 0; i < this.length; ++i) {
+      if (matches(this[i], selector)) {
+          results.push(this[i]);
+      }
+  }
+  return new Helix(results);
 };
 
 
